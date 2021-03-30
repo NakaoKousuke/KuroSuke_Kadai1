@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet private var textFieldCollection: [UITextField]!
     
@@ -17,30 +17,26 @@ class ViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for textFd in textFieldCollection {
-            textFd.delegate = self
+        for textField in textFieldCollection {
+            textField.delegate = self
         }
-        
-        // Do any additional setup after loading the view.
     }
 
-    
     //ボタンを押すと各テキストフィールドの値を足し、resultLabelに表示させる
     @IBAction func calculateButton(_ sender: Any) {
-        
         //合計値
-        var total:Int = 0
+        var total: Int = 0
     
         //textFieldを1つずつ取り出し、テキストがnilではない、テキストがIntの場合のみ計算される
-        for textFd in textFieldCollection {
-            if let stringText = textFd.text, let intText = Int(stringText) {
-                total += intText
+        for textField in textFieldCollection {
+            guard let numberText = textField.text, let number = Int(numberText) else {
+                continue
             }
+
+            total += number
         }
         
         //resultLabelに合計値を表示させる
         resultLabel.text = String(total)
     }
-
 }
-
